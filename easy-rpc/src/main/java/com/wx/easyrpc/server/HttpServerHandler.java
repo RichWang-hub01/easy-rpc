@@ -8,14 +8,9 @@ import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.spi.observability.HttpRequest;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.sound.midi.VoiceStatus;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.http.HttpResponse;
 
 /**
  * @author WX

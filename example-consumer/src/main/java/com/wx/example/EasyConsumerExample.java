@@ -22,7 +22,5 @@ public class EasyConsumerExample {
         }else {
             System.out.println("user == null");
         }
-
-
     }
 }
