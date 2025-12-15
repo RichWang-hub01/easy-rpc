@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>example-provider</artifactId>
+    <artifactId>rpc-core</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,32 +19,40 @@
 
     <dependencies>
 
-        <!-- 项目公共模块依赖 -->
-        <dependency>
-            <groupId>com.wx</groupId>
-            <artifactId>example-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!-- RPC核心模块依赖 -->
-        <dependency>
-            <groupId>com.wx</groupId>
-            <artifactId>rpc-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!-- Hutool工具库依赖 -->
+        <!-- Hutool工具库，提供各种Java开发所需的工具类集合 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.26</version>
         </dependency>
 
-        <!-- Lombok依赖 -->
+        <!-- Lombok库，通过注解简化Java代码，减少getter/setter等样板代码 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.38</version>
+        </dependency>
+
+        <!-- Vert.x核心库，用于构建响应式应用程序的工具包 -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+
+        <!-- Logback日志框架，提供日志记录功能 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.18</version>
+        </dependency>
+
+        <!-- JUnit测试框架，用于编写和运行单元测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
