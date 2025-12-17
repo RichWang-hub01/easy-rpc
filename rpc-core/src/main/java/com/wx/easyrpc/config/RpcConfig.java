@@ -30,5 +30,10 @@ public class RpcConfig {
      */
     private Integer serverPort = 8080;
 
+    /**
+     * mock服务开关
+     */
+    private String mockConfig = "false";
+
 }
 

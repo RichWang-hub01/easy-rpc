@@ -1,6 +1,8 @@
 package com.wx.example;
 
+import com.wx.easyrpc.config.RpcConfig;
 import com.wx.easyrpc.proxy.ServiceProxyFactory;
+import com.wx.easyrpc.utils.ConfigUtils;
 import com.wx.example.common.model.User;
 import com.wx.example.common.service.UserService;
 
@@ -11,14 +13,18 @@ import com.wx.example.common.service.UserService;
  **/
 public class EasyConsumerExample {
     public static void main(String[] args) {
+        // 加载配置
+        RpcConfig rpc = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
+
         User user = new User("zhangsan");
 
         // 创建服务,先使用静态代理
         //UserServiceProxy userServiceProxy = new UserServiceProxy();
 
         // 使用动态代理 创建服务
+        // 此处userService是公共服务中的接口，类似于公司项目中的jar包依赖
         UserService userServiceProxy = ServiceProxyFactory.getProxy(UserService.class);
-        // 调用服务
+        // 通过代理对象调用服务，
         User newUser = userServiceProxy.getUser(user);
 
         if (newUser != null){

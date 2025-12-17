@@ -1,5 +1,8 @@
 package com.wx.easyrpc.proxy;
 
+import com.wx.easyrpc.config.RpcConfig;
+import com.wx.easyrpc.utils.ConfigUtils;
+
 import java.lang.reflect.Proxy;
 
 /**
@@ -15,6 +18,17 @@ public class ServiceProxyFactory {
      * @return
      */
     public static <T> T getProxy(Class<T> interfaceClass) {
+        // 1.先读取rpcConfig,是否打开mock开关
+        RpcConfig rpcConfig = ConfigUtils.loadConfig(RpcConfig.class, "rpc");
+        // 2.开启则创建MockServiceProxy
+        if ("true".equals(rpcConfig.getMockConfig())){
+            return (T) Proxy.newProxyInstance(
+                    interfaceClass.getClassLoader(),
+                    new Class[]{interfaceClass},
+                    new MockServiceProxy()
+            );
+        }
+        // 3.否则创建ServiceProxy
         return (T) Proxy.newProxyInstance(
                 interfaceClass.getClassLoader(),
                 new Class[]{interfaceClass},
