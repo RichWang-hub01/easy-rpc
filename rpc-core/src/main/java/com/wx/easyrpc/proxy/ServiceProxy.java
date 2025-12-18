@@ -33,6 +33,7 @@ public class ServiceProxy implements InvocationHandler {
                 .parameterTypes(method.getParameterTypes())
                 .args(args).build();
         // 2.指定序列化器
+        // 此处序列化器是写死的，应该支持自定义
         Serializer serialize = new JdkSerializer();
         // 2.将请求序列化
         try {
