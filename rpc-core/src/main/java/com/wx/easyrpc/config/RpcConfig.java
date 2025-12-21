@@ -35,5 +35,10 @@ public class RpcConfig {
      */
     private String mockConfig = "false";
 
+    /**
+     * 注册中心配置
+     */
+    private RegistryConfig registryConfig;
+
 }
 
