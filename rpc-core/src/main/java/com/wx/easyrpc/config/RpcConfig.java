@@ -2,6 +2,8 @@ package com.wx.easyrpc.config;
 
 import lombok.Data;
 
+import java.util.PrimitiveIterator;
+
 /**
  * @author WX
  * @date 2025-12-15 22:25
@@ -39,6 +41,11 @@ public class RpcConfig {
      * 注册中心配置
      */
     private RegistryConfig registryConfig;
+
+    /**
+     * 序列化器
+     */
+    private String serializer = "JsonSerializer";
 
 }
 
