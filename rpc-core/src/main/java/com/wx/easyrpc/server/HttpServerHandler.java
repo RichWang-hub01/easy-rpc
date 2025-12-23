@@ -1,9 +1,12 @@
 package com.wx.easyrpc.server;
 
+import com.wx.easyrpc.RpcApplication;
 import com.wx.easyrpc.model.RpcRequest;
 import com.wx.easyrpc.model.RpcResponse;
 import com.wx.easyrpc.registry.LocalRegistry;
 import com.wx.easyrpc.serializer.JdkSerializer;
+import com.wx.easyrpc.serializer.Serializer;
+import com.wx.easyrpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -21,8 +24,8 @@ import java.lang.reflect.Method;
 public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
-        // 指定序列化器
-        JdkSerializer serializer = new JdkSerializer();
+        // 获取系统配置的序列化器
+        Serializer serializer = SerializerFactory.getSerializer(RpcApplication.getRpcConfig().getSerializer());
         // 记录日志
         log.info("接收到请求: {},方法名称: {}", request.uri(), request.method());
         // 异步处理请求
@@ -67,7 +70,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
         });
     }
 
-    private void doResponse(HttpServerRequest request, RpcResponse rpcResponse, JdkSerializer serializer){
+    private void doResponse(HttpServerRequest request, RpcResponse rpcResponse, Serializer serializer){
         // 设置响应头
         HttpServerResponse httpServerResponse = request.response()
                 .putHeader("content-type", "application/json");

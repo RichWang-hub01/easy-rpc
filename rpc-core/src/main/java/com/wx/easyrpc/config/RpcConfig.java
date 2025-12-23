@@ -1,5 +1,6 @@
 package com.wx.easyrpc.config;
 
+import com.wx.easyrpc.serializer.SerializerKeys;
 import lombok.Data;
 
 import java.util.PrimitiveIterator;
@@ -45,7 +46,7 @@ public class RpcConfig {
     /**
      * 序列化器
      */
-    private String serializer = "JsonSerializer";
+    private String serializer = SerializerKeys.JDK;
 
 }
 

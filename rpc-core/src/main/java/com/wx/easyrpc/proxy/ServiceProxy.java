@@ -2,10 +2,13 @@ package com.wx.easyrpc.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.wx.easyrpc.RpcApplication;
 import com.wx.easyrpc.model.RpcRequest;
 import com.wx.easyrpc.model.RpcResponse;
 import com.wx.easyrpc.serializer.JdkSerializer;
 import com.wx.easyrpc.serializer.Serializer;
+import com.wx.easyrpc.serializer.SerializerFactory;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -32,12 +35,11 @@ public class ServiceProxy implements InvocationHandler {
                 .methodName(method.getName())
                 .parameterTypes(method.getParameterTypes())
                 .args(args).build();
-        // 2.指定序列化器
-        // 此处序列化器是写死的，应该支持自定义
-        Serializer serialize = new JdkSerializer();
+        // 获取系统配置的序列化器
+        Serializer serializer = SerializerFactory.getSerializer(RpcApplication.getRpcConfig().getSerializer());
         // 2.将请求序列化
         try {
-            byte[] requestBytes = serialize.serialize(rpcRequest);
+            byte[] requestBytes = serializer.serialize(rpcRequest);
             byte[] result;
             // 3.发送请求
             // todo 此处服务地址硬编码，后续使用服务注册中心
@@ -47,7 +49,7 @@ public class ServiceProxy implements InvocationHandler {
             // 4.构建响应
             result = httpResponse.bodyBytes();
             // 5.反序列化响应
-            RpcResponse rpcResponse = serialize.deserialize(result, RpcResponse.class);
+            RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
             return rpcResponse.getData();
         } catch (Exception e) {
             throw new RuntimeException(e);
